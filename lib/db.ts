@@ -14,7 +14,7 @@ import {
   off,
   runTransaction,
 } from "firebase/database";
-import { database } from "./firebase";
+import { getDb } from "./firebase";
 import type {
   Session,
   Vote,
@@ -35,7 +35,7 @@ export async function createSession(
   adminEmail: string,
   sessionCode: string
 ): Promise<string> {
-  const sessionsRef = ref(database, "sessions");
+  const sessionsRef = ref(getDb(), "sessions");
   const newRef = push(sessionsRef);
   const session: Session = {
     title,
@@ -50,7 +50,7 @@ export async function createSession(
   await set(newRef, session);
 
   // Enregistrer le code dans un index pour garantir l'unicité
-  const codeRef = ref(database, `sessionCodes/${sessionCode}`);
+  const codeRef = ref(getDb(), `sessionCodes/${sessionCode}`);
   await set(codeRef, newRef.key);
 
   return newRef.key!;
@@ -60,7 +60,7 @@ export async function createSession(
  * Vérifie si un code de session existe déjà.
  */
 export async function isSessionCodeTaken(code: string): Promise<boolean> {
-  const codeRef = ref(database, `sessionCodes/${code}`);
+  const codeRef = ref(getDb(), `sessionCodes/${code}`);
   const snapshot = await get(codeRef);
   return snapshot.exists();
 }
@@ -71,12 +71,12 @@ export async function isSessionCodeTaken(code: string): Promise<boolean> {
 export async function findSessionByCode(
   code: string
 ): Promise<Session | null> {
-  const codeRef = ref(database, `sessionCodes/${code}`);
+  const codeRef = ref(getDb(), `sessionCodes/${code}`);
   const codeSnapshot = await get(codeRef);
   if (!codeSnapshot.exists()) return null;
 
   const sessionId = codeSnapshot.val() as string;
-  const sessionRef = ref(database, `sessions/${sessionId}`);
+  const sessionRef = ref(getDb(), `sessions/${sessionId}`);
   const sessionSnapshot = await get(sessionRef);
   if (!sessionSnapshot.exists()) return null;
 
@@ -89,7 +89,7 @@ export async function findSessionByCode(
 export async function getSession(
   sessionId: string
 ): Promise<Session | null> {
-  const sessionRef = ref(database, `sessions/${sessionId}`);
+  const sessionRef = ref(getDb(), `sessions/${sessionId}`);
   const snapshot = await get(sessionRef);
   if (!snapshot.exists()) return null;
   return { ...snapshot.val(), id: sessionId } as Session;
@@ -99,7 +99,7 @@ export async function getSession(
  * Liste toutes les sessions.
  */
 export async function listSessions(): Promise<Session[]> {
-  const sessionsRef = ref(database, "sessions");
+  const sessionsRef = ref(getDb(), "sessions");
   const snapshot = await get(sessionsRef);
   if (!snapshot.exists()) return [];
 
@@ -114,7 +114,7 @@ export async function listSessions(): Promise<Session[]> {
  * Ferme une session de vote.
  */
 export async function closeSession(sessionId: string): Promise<void> {
-  const sessionRef = ref(database, `sessions/${sessionId}`);
+  const sessionRef = ref(getDb(), `sessions/${sessionId}`);
   await update(sessionRef, {
     status: "closed",
     closedAt: Date.now(),
@@ -128,16 +128,16 @@ export async function deleteSession(sessionId: string): Promise<void> {
   // Récupérer le code de session pour nettoyer l'index
   const session = await getSession(sessionId);
   if (session?.sessionCode) {
-    const codeRef = ref(database, `sessionCodes/${session.sessionCode}`);
+    const codeRef = ref(getDb(), `sessionCodes/${session.sessionCode}`);
     await remove(codeRef);
   }
 
   // Supprimer les votes
-  const votesRef = ref(database, `votes/${sessionId}`);
+  const votesRef = ref(getDb(), `votes/${sessionId}`);
   await remove(votesRef);
 
   // Supprimer la session
-  const sessionRef = ref(database, `sessions/${sessionId}`);
+  const sessionRef = ref(getDb(), `sessions/${sessionId}`);
   await remove(sessionRef);
 }
 
@@ -148,7 +148,7 @@ export function subscribeToSession(
   sessionId: string,
   callback: (session: Session | null) => void
 ): () => void {
-  const sessionRef = ref(database, `sessions/${sessionId}`);
+  const sessionRef = ref(getDb(), `sessions/${sessionId}`);
   const listener = onValue(sessionRef, (snapshot) => {
     if (!snapshot.exists()) {
       callback(null);
@@ -172,7 +172,7 @@ export async function castVote(
   sessionId: string,
   choice: VoteChoice
 ): Promise<{ success: boolean; alreadyFull: boolean }> {
-  const sessionRef = ref(database, `sessions/${sessionId}`);
+  const sessionRef = ref(getDb(), `sessions/${sessionId}`);
 
   // Transaction atomique pour incrémenter currentVotes
   let alreadyFull = false;
@@ -200,7 +200,7 @@ export async function castVote(
   }
 
   // Enregistrer le vote anonyme (opération SÉPARÉE — aucun lien avec l'utilisateur)
-  const votesRef = ref(database, `votes/${sessionId}`);
+  const votesRef = ref(getDb(), `votes/${sessionId}`);
   const newVoteRef = push(votesRef);
   const vote: Vote = {
     choice,
@@ -218,7 +218,7 @@ export function subscribeToVotes(
   sessionId: string,
   callback: (results: VoteResults) => void
 ): () => void {
-  const votesRef = ref(database, `votes/${sessionId}`);
+  const votesRef = ref(getDb(), `votes/${sessionId}`);
   const listener = onValue(votesRef, (snapshot) => {
     const results: VoteResults = {
       favorable: 0,

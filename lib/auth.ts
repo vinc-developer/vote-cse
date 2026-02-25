@@ -8,7 +8,7 @@ import {
   onAuthStateChanged as firebaseOnAuthStateChanged,
   type User,
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { getFirebaseAuth } from "./firebase";
 
 /**
  * Connexion administrateur par email/mot de passe.
@@ -17,7 +17,7 @@ export async function loginAdmin(
   email: string,
   password: string
 ): Promise<User> {
-  const credential = await signInWithEmailAndPassword(auth, email, password);
+  const credential = await signInWithEmailAndPassword(getFirebaseAuth(), email, password);
   return credential.user;
 }
 
@@ -25,7 +25,7 @@ export async function loginAdmin(
  * Déconnexion administrateur.
  */
 export async function logoutAdmin(): Promise<void> {
-  await signOut(auth);
+  await signOut(getFirebaseAuth());
 }
 
 /**
@@ -34,5 +34,5 @@ export async function logoutAdmin(): Promise<void> {
 export function onAuthChange(
   callback: (user: User | null) => void
 ): () => void {
-  return firebaseOnAuthStateChanged(auth, callback);
+  return firebaseOnAuthStateChanged(getFirebaseAuth(), callback);
 }

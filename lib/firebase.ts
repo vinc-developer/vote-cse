@@ -1,6 +1,6 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
+import { getDatabase, type Database } from "firebase/database";
+import { getAuth, type Auth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,9 +12,26 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Éviter la double initialisation en mode développement
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+// Initialisation lazy pour éviter les erreurs au build SSG
+// Firebase n'est initialisé que côté client (au premier appel)
 
-export const database = getDatabase(app);
-export const auth = getAuth(app);
-export default app;
+function getApp_(): FirebaseApp {
+  return getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+}
+
+let _database: Database | null = null;
+let _auth: Auth | null = null;
+
+export function getDb(): Database {
+  if (!_database) {
+    _database = getDatabase(getApp_());
+  }
+  return _database;
+}
+
+export function getFirebaseAuth(): Auth {
+  if (!_auth) {
+    _auth = getAuth(getApp_());
+  }
+  return _auth;
+}
