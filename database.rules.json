@@ -5,7 +5,7 @@
       "$sessionId": {
         ".read": true,
         ".write": true,
-        ".validate": "newData.hasChildren(['title', 'status', 'sessionCode', 'voterCount', 'currentVotes', 'adminEmail', 'createdAt'])"
+        ".validate": "!newData.exists() || newData.hasChildren(['title', 'status', 'sessionCode', 'voterCount', 'currentVotes', 'adminEmail', 'createdAt'])"
       }
     },
     "sessionCodes": {
@@ -18,8 +18,9 @@
     "votes": {
       "$sessionId": {
         ".read": "auth != null",
+        ".write": "auth != null && !newData.exists()",
         "$voteId": {
-          ".write": "!data.exists()",
+          ".write": "!data.exists() || (auth != null && !newData.exists())",
           ".validate": "newData.hasChildren(['choice', 'createdAt']) && (newData.child('choice').val() === 'favorable' || newData.child('choice').val() === 'defavorable' || newData.child('choice').val() === 'abstention') && newData.child('createdAt').isNumber()"
         }
       }
