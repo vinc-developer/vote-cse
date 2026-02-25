@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "sessions": {
+      ".read": true,
+      "$sessionId": {
+        ".read": true,
+        ".write": true,
+        ".validate": "newData.hasChildren(['title', 'status', 'sessionCode', 'voterCount', 'currentVotes', 'adminEmail', 'createdAt'])"
+      }
+    },
+    "sessionCodes": {
+      ".read": true,
+      "$code": {
+        ".read": true,
+        ".write": "auth != null"
+      }
+    },
+    "votes": {
+      "$sessionId": {
+        ".read": "auth != null",
+        "$voteId": {
+          ".write": "!data.exists()",
+          ".validate": "newData.hasChildren(['choice', 'createdAt']) && (newData.child('choice').val() === 'favorable' || newData.child('choice').val() === 'defavorable' || newData.child('choice').val() === 'abstention') && newData.child('createdAt').isNumber()"
+        }
+      }
+    }
+  }
+}

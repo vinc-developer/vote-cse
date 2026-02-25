@@ -1,0 +1,167 @@
+/* ========================================
+   Charte graphique CSE — #fbbe00
+   ======================================== */
+
+:root {
+  --cse-primary: #fbbe00;
+  --cse-primary-dark: #d9a300;
+  --cse-primary-light: #fcd44d;
+  --cse-text-on-primary: #1a1a1a;
+}
+
+/* --- Navbar --- */
+.navbar-cse {
+  background-color: var(--cse-primary) !important;
+}
+.navbar-cse .navbar-brand,
+.navbar-cse .nav-link {
+  color: var(--cse-text-on-primary) !important;
+  font-weight: 600;
+}
+.navbar-cse .nav-link:hover {
+  color: #000 !important;
+  text-decoration: underline;
+}
+
+/* --- Override Bootstrap Primary → CSE --- */
+.btn-primary {
+  background-color: var(--cse-primary) !important;
+  border-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+  font-weight: 600;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--cse-primary-dark) !important;
+  border-color: var(--cse-primary-dark) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+.btn-primary:disabled {
+  background-color: var(--cse-primary-light) !important;
+  border-color: var(--cse-primary-light) !important;
+  color: #666 !important;
+}
+
+.btn-outline-primary {
+  border-color: var(--cse-primary) !important;
+  color: var(--cse-primary-dark) !important;
+}
+.btn-outline-primary:hover {
+  background-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+
+/* btn-cse (identique, pour usage explicite) */
+.btn-cse {
+  background-color: var(--cse-primary);
+  border-color: var(--cse-primary);
+  color: var(--cse-text-on-primary);
+  font-weight: 600;
+}
+.btn-cse:hover,
+.btn-cse:focus {
+  background-color: var(--cse-primary-dark);
+  border-color: var(--cse-primary-dark);
+  color: var(--cse-text-on-primary);
+}
+.btn-cse:disabled {
+  background-color: var(--cse-primary-light);
+  border-color: var(--cse-primary-light);
+  color: #666;
+}
+
+.btn-outline-cse {
+  border-color: var(--cse-primary);
+  color: var(--cse-primary-dark);
+}
+.btn-outline-cse:hover {
+  background-color: var(--cse-primary);
+  color: var(--cse-text-on-primary);
+}
+
+/* --- Spinners --- */
+.spinner-border.text-primary {
+  color: var(--cse-primary) !important;
+}
+.spinner-cse {
+  color: var(--cse-primary) !important;
+}
+
+/* --- Badges --- */
+.badge.bg-primary {
+  background-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+.badge-cse {
+  background-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+.badge.bg-info {
+  background-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+
+/* --- Progress bars --- */
+.progress-bar.bg-primary {
+  background-color: var(--cse-primary) !important;
+}
+.progress-bar-cse {
+  background-color: var(--cse-primary) !important;
+}
+
+/* --- Cards headers --- */
+.card-header.bg-primary {
+  background-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+.card-header.bg-info {
+  background-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+.card-header.bg-warning {
+  background-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+.card-header-cse {
+  background-color: var(--cse-primary) !important;
+  color: var(--cse-text-on-primary) !important;
+}
+
+/* --- Text color overrides --- */
+.text-primary {
+  color: var(--cse-primary-dark) !important;
+}
+.h2.text-primary, .h2.mb-0.text-primary {
+  color: var(--cse-primary-dark) !important;
+}
+
+/* --- Footer --- */
+.footer-cse {
+  border-top: 3px solid var(--cse-primary) !important;
+}
+
+/* --- Focus states --- */
+.form-control:focus {
+  border-color: var(--cse-primary);
+  box-shadow: 0 0 0 0.25rem rgba(251, 190, 0, 0.25);
+}
+
+/* --- Links --- */
+a.text-cse {
+  color: var(--cse-primary-dark);
+}
+a.text-cse:hover {
+  color: #b38600;
+}
+
+/* --- Success/Danger/Warning votes : garder les couleurs Bootstrap intactes --- */
+.btn-success {
+  /* Garder le vert Bootstrap pour "Favorable" */
+}
+.btn-danger {
+  /* Garder le rouge Bootstrap pour "Défavorable" */
+}
+.btn-warning {
+  /* Garder le jaune Bootstrap pour "Abstention" */
+}
+
