@@ -152,7 +152,7 @@ function ResultsPageContent() {
       <div className="text-center py-5">
         <div className="display-1 mb-3">⚠️</div>
         <h2>Aucune session sélectionnée</h2>
-        <a href="/vote-cse/admin/" className="btn btn-primary mt-3">
+        <a href="/admin/" className="btn btn-primary mt-3">
           Retour à l&apos;administration
         </a>
       </div>
@@ -175,7 +175,7 @@ function ResultsPageContent() {
       <div className="text-center py-5">
         <div className="display-1 mb-3">❌</div>
         <h2>Session introuvable</h2>
-        <a href="/vote-cse/admin/" className="btn btn-primary mt-3">
+        <a href="/admin/" className="btn btn-primary mt-3">
           Retour à l&apos;administration
         </a>
       </div>
@@ -274,7 +274,7 @@ function ResultsPageContent() {
           )}
 
           <div className="text-center mt-4">
-            <a href="/vote-cse/admin/" className="btn btn-outline-secondary">
+            <a href="/admin/" className="btn btn-outline-secondary">
               ← Retour à l&apos;administration
             </a>
           </div>

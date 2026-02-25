@@ -75,7 +75,7 @@ function VotePageContent() {
       <div className="text-center py-5">
         <div className="display-1 mb-3">⚠️</div>
         <h2>Aucune session sélectionnée</h2>
-        <a href="/vote-cse/" className="btn btn-primary mt-3">
+        <a href="/" className="btn btn-primary mt-3">
           Retour à l&apos;accueil
         </a>
       </div>
@@ -97,7 +97,7 @@ function VotePageContent() {
       <div className="text-center py-5">
         <div className="display-1 mb-3">❌</div>
         <h2>Session introuvable</h2>
-        <a href="/vote-cse/" className="btn btn-primary mt-3">
+        <a href="/" className="btn btn-primary mt-3">
           Retour à l&apos;accueil
         </a>
       </div>
@@ -200,7 +200,7 @@ function VotePageContent() {
                 <p className="text-muted">
                   Votre vote a été enregistré pour cette session.
                 </p>
-                <a href="/vote-cse/" className="btn btn-outline-primary mt-2">
+                <a href="/" className="btn btn-outline-primary mt-2">
                   ← Retour à l&apos;accueil
                 </a>
               </div>
@@ -220,7 +220,7 @@ function VotePageContent() {
                 <p className="text-muted">
                   Merci de votre participation. Votre vote est anonyme.
                 </p>
-                <a href="/vote-cse/" className="btn btn-outline-primary mt-2">
+                <a href="/" className="btn btn-outline-primary mt-2">
                   ← Retour à l&apos;accueil
                 </a>
               </div>
@@ -240,7 +240,7 @@ function VotePageContent() {
                 <p className="text-muted">
                   Tous les votes ont été enregistrés ou la session a été fermée.
                 </p>
-                <a href="/vote-cse/" className="btn btn-outline-primary mt-2">
+                <a href="/" className="btn btn-outline-primary mt-2">
                   ← Retour à l&apos;accueil
                 </a>
               </div>

@@ -295,7 +295,7 @@ function SessionManagement({
                     <td>
                       <div className="d-flex gap-1">
                         <a
-                          href={`/vote-cse/results/?id=${session.id}`}
+                          href={`/results/?id=${session.id}`}
                           className="btn btn-outline-primary btn-sm"
                           title="Résultats"
                         >
