@@ -31,7 +31,7 @@ export default function HomePage() {
         return;
       }
       // Rediriger vers la page de vote
-      window.location.href = `/session/?id=${session.id}`;
+      window.location.href = `/vote-cse/session/?id=${session.id}`;
     } catch (err) {
       setError("Erreur de connexion. Réessayez.");
       console.error(err);

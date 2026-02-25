@@ -17,24 +17,24 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
           rel="stylesheet"
-          href="/bootstrap/css/bootstrap.min.css"
+          href="/vote-cse/bootstrap/css/bootstrap.min.css"
         />
         <link
           rel="stylesheet"
-          href="/css/cse-theme.css"
+          href="/vote-cse/css/cse-theme.css"
         />
       </head>
       <body>
         <nav className="navbar navbar-expand-lg navbar-cse mb-4">
           <div className="container">
-            <a className="navbar-brand fw-bold" href="/">
+            <a className="navbar-brand fw-bold" href="/vote-cse/">
               🗳️ Vote CSE
             </a>
             <div className="navbar-nav ms-auto">
-              <a className="nav-link" href="/">
+              <a className="nav-link" href="/vote-cse/">
                 Voter
               </a>
-              <a className="nav-link" href="/admin/">
+              <a className="nav-link" href="/vote-cse/admin/">
                 Administration
               </a>
             </div>
@@ -50,7 +50,7 @@ export default function RootLayout({
           </div>
         </footer>
         <script
-          src="/bootstrap/js/bootstrap.bundle.min.js"
+          src="/vote-cse/bootstrap/js/bootstrap.bundle.min.js"
           defer
         />
       </body>
